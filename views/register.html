@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='myApp'>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../public/javascripts/angular.min.js"></script>
+	<link rel="stylesheet" href="../public/stylesheets/style.css">
+</head>
+<body ng-controller='myCtr'>
+
+	<h1>注册</h1><a href="login.html">登录</a>&nbsp;<a href="update.html">修改密码</a>
+	<div class="content">
+	    <div class="left-reg-area">
+	        <form class="left-reg-input" method="post" ng-submit="getMess()">
+	            <div class="input-text">
+	                <span>用户名：</span><input type="text" ng-model="username" name="username" placeholder="用户名">
+	            </div>
+
+	            <div class="input-text">
+	                <span>密码：</span><input type="password" ng-model='password' name="password" placeholder="密码">
+	            </div>
+	            <div class="input-text">
+	                <span></span><input type="button" id="submit" value="注册"  >
+	            </div>
+	        </form>
+	    </div>
+	</div>
+</body>
+
+
+
+
+<script>
+	var app = angular.module('myApp',[]);
+	app.controller('myCtr',function($scope,myService){
+      $scope.getMess = function(){
+        var option = {
+            username:$scope.username,
+            password:$scope.password
+        };
+        var url = 'http://localhost:8000/register';
+        myService.getData(url,option,function(error,data){
+            if(error){
+            	console.log(1);
+                console.log("error",error);
+          }else{
+          console.log(2);
+                console.log('data',data);
+            }
+        });
+      }
+      
+	})
+	app.factory('myService',function($http){
+		return {
+			getData : function(url,option,cb){
+
+				$http.post(url,option).success(function(data){
+					return cb(null,data);
+				}).error(function(error){
+					return cb(error,null);
+				})
+			}
+		}
+	})
+
+</script>
+</html>

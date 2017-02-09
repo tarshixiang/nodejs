@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.content{
+    width: 1000px;
+    height: 500px;
+    border: 1px solid blue;
+    margin: 50px auto;
+
+}
+.content h1{
+  text-align: center;
+  margin-top: 20px;
+}
+.left-reg-input .input-text{
+   line-height: 60px;
+    height: 60px;
+}
+.left-reg-input .input-text input{
+   width: 320px;
+   height: 32px;
+   line-height: 32px;
+   text-indent: 20px;
+
+}
+.left-reg-input .input-text span{
+  display: inline-block;
+  width: 80px;
+  text-align: right;
+  padding-left: 250px;
+  color: #666;
+}
+a{
+text-decoration: none;
+}

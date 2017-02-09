@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="../public/javascripts/angular.min.js"></script>
+  <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .content{
+            width: 1000px;
+            height: 500px;
+            border: 1px solid blue;
+            margin: 100px auto;
+
+        }
+        .left-reg-area{
+            width: 600px;
+            height: 500px;
+            border: 1px solid red;
+            float:left;
+        }
+        .left-reg-input{
+            padding: 40px;
+        }
+
+       .left-reg-input .input-text{
+           line-height: 60px;
+            height: 60px;
+       }
+       .left-reg-input .input-text input{
+           width: 320px;
+           height: 32px;
+           padding-left: 20px;
+           line-height: 32px;
+
+       }
+
+      .left-reg-input .input-text span{
+          display: inline-block;
+          width: 80px;
+          text-align: right;
+          padding-right: 6px;
+          color: #666;
+      }
+
+        .right-reg{
+            width:380px;
+            height: 500px;
+            background-color: blue;
+            float:right;
+        }
+    </style>
+</head>
+<body ng-controller='myCtr'>
+<h1>修改密码</h1><a href="register.html">注册</a>&nbsp;<a href="login.html">登录</a>
+<div class="content">
+
+    <div class="left-reg-area">
+        <form class="left-reg-input" action="http://localhost:8000/update" method="post">
+             <div class="input-text">
+                <span>用户名：</span><input type="text" id="username" name="username" placeholder="用户名">
+            </div>
+            <div class="input-text">
+                <span>旧密码：</span><input type="password" id="password" name="password" placeholder="旧密码">
+            </div>
+             <div class="input-text">
+                <span>新密码：</span><input type="password" id="passwordNew" name="passwordNew" placeholder="新密码">
+            </div>
+
+            <div class="input-text">
+                <span></span><input type="submit" id="submit" >
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+
+
+
+
+<script>
+  var app = angular.module('myApp',[]);
+  app.controller('myCtr',function($scope,myService){
+      myService.getData(function(error,data){
+        if(error){
+          console.log("error",error);
+        }else{
+          
+          console.log(data);
+
+        }
+      });
+  })
+  app.factory('myService',function($http){
+    return {
+      getData : function(cb){
+        $http.post('http://localhost:8000/update').success(function(data){
+          cb(null,data);
+        }).error(function(error){
+          cb(error,null);
+        })
+      }
+    }
+  })
+
+</script>
+</html>
